@@ -129,6 +129,9 @@ img { max-width: 100%; display: block; }
 @media (hover: none) {
   .cursor-dot, .cursor-ring { display: none; }
   body { cursor: auto; }
+  a, button, .btn, .nav-cta { cursor: pointer; }
+  /* remove tap highlight & callouts on touch */
+  * { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
 }
 
 /* ---------- NAV ---------- */
@@ -758,34 +761,133 @@ footer {
 .pre-pct { font-family: var(--font-mono); font-size: .78rem; color: var(--text-mute); margin-top: 14px; letter-spacing: 2px; }
 
 /* ---------- RESPONSIVE ---------- */
+/* ============================================================
+   RESPONSIVE — tablet (≤1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* hero takes a touch less vertical room */
+  section { padding: 80px 5vw; }
+  .about-grid { gap: 40px; }
+  .hero-content { max-width: 100%; }
+  .hero-title { font-size: clamp(3rem, 11vw, 5rem); }
+}
+
+/* ============================================================
+   RESPONSIVE — mobile (≤900px / ≤768px)
+   ============================================================ */
 @media (max-width: 900px) {
   .about-grid, .split-grid { grid-template-columns: 1fr; gap: 30px; }
+
+  /* nav becomes burger */
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-links.open {
     display: flex; flex-direction: column;
-    position: absolute; top: 70px; right: 6vw;
+    position: absolute; top: 70px; right: 5vw;
     background: rgba(8,9,14,0.96);
     border: 1px solid var(--border);
     border-radius: 16px; padding: 24px;
     backdrop-filter: blur(20px); gap: 18px;
     align-items: flex-start;
+    min-width: 200px;
   }
-  .hero-stats { gap: 30px; }
+
+  /* hero: text over 3D — darken a backdrop so text stays readable */
+  section { padding: 70px 5vw; }
+  #hero { padding-top: 110px; min-height: 100vh; }
+  #hero::before {
+    content:''; position:absolute; inset:0; z-index: 0; pointer-events:none;
+    background: linear-gradient(180deg, rgba(5,6,9,0.55) 0%, rgba(5,6,9,0.35) 55%, rgba(5,6,9,0.85) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-stats { gap: 28px; }
+  .hero-title { font-size: clamp(2.6rem, 13vw, 4.2rem); letter-spacing: -1.5px; }
+  .hero-sub { max-width: 100%; }
+  .hero-cta { gap: 14px; }
+  .btn { padding: 14px 28px; font-size: .88rem; }
+
+  /* marquee smaller */
+  .marquee-track span { font-size: 1.4rem; }
+  .marquee { padding: 20px 0; }
+
+  /* section titles */
+  .section-title { font-size: clamp(2rem, 8vw, 2.6rem); }
+  .section-lead { font-size: .98rem; }
+
+  /* timeline single column */
   .timeline::before { left: 8px; }
   .tl-item { width: 100%; padding: 0 0 40px 36px; margin-left: 0 !important; }
   .tl-item::after { left: 0; right: auto; }
-  section { padding: 70px 6vw; }
-  .marquee-track span { font-size: 1.5rem; }
-  /* process becomes 2x2 grid on tablet, hide the connector line */
-  .process-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* process becomes 2x2, hide connector line */
+  .process-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .process-wrap::before { display: none; }
-  .cta-card { padding: 56px 26px; }
+  .ps-num { width: 54px; height: 54px; font-size: 1.2rem; margin-bottom: 16px; }
+  .ps-body { padding: 22px 18px; }
+
+  /* cta */
+  .cta-card { padding: 50px 24px; }
+  .cta-content h3 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+
+  /* projects stack single column-ish, cards shorter */
+  .projects-grid { grid-template-columns: 1fr; }
+
+  /* contact email wraps nicely */
+  .contact-email { word-break: break-all; }
 }
+
+@media (max-width: 768px) {
+  /* disable expensive 3D-tilt on touch/small screens (cards lift only) */
+  [data-tilt] { transform: none !important; }
+
+  /* skills & services single column for readability */
+  .skills-grid, .services-grid { grid-template-columns: 1fr; }
+
+  /* bigger tap targets on nav & buttons */
+  .nav-burger span { width: 28px; }
+  .btn { padding: 15px 30px; }
+  .social { width: 52px; height: 52px; }
+
+  /* hero role line wraps */
+  .hero-role { font-size: .78rem; gap: 8px; }
+  .hero-role .role-sep { display: none; }
+
+  /* stats wrap under each other if needed */
+  .hero-stats { flex-wrap: wrap; }
+}
+
+/* ============================================================
+   RESPONSIVE — small phones (≤520px)
+   ============================================================ */
 @media (max-width: 520px) {
+  section { padding: 60px 6vw; }
+  #hero { padding-top: 100px; }
+  .hero-title { font-size: clamp(2.2rem, 15vw, 3.4rem); }
   .hero-stats { gap: 22px; }
-  .hero-stat .num { font-size: 2rem; }
-  .process-grid { grid-template-columns: 1fr; }
+  .hero-stat .num { font-size: 1.9rem; }
+  .hero-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+  .btn { width: 100%; justify-content: center; }
+
+  .nav-logo { font-size: 1.25rem; }
+  nav { padding: 16px 5vw; }
+
+  .section-title { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+  .marquee-track span { font-size: 1.15rem; }
+
+  .process-grid { grid-template-columns: 1fr; gap: 16px; }
+  .contact-title { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .contact-email { font-size: 1.1rem; }
+
+  footer { flex-direction: column; text-align: center; gap: 8px; }
+}
+
+/* ============================================================
+   RESPONSIVE — landscape phones
+   ============================================================ */
+@media (max-width: 900px) and (orientation: landscape) {
+  #hero { min-height: 100vh; padding-top: 90px; }
+  .hero-stats { gap: 20px; }
+  .hero-stat .num { font-size: 1.8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

@@ -22,14 +22,22 @@ const canvas = document.getElementById('scene-canvas');
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x050609, 0.045);
 
-const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 0.5, 10);
+/* Device detection — adjust scene for phones/tablets */
+const isMobile  = window.matchMedia('(max-width: 768px)').matches;
+const isTablet  = window.matchMedia('(max-width: 1024px)').matches && !isMobile;
+const isLowEnd  = isMobile && (navigator.hardwareConcurrency || 4) <= 4;
+
+/* Camera FOV widens on small screens so nothing goes off-screen */
+const camFov = isMobile ? 60 : (isTablet ? 50 : 42);
+const camera = new THREE.PerspectiveCamera(camFov, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 0.5, isMobile ? 12 : 10);
 
 const renderer = new THREE.WebGLRenderer({
-  canvas, antialias: true, alpha: true,
+  canvas, antialias: !isLowEnd, alpha: true,
   powerPreference: 'high-performance'
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+/* cap pixel ratio for performance on phones */
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.1;
@@ -39,12 +47,14 @@ const pmrem = new THREE.PMREMGenerator(renderer);
 const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 scene.environment = envTex;
 
-/* Post-processing — bloom */
+/* Post-processing — bloom (reduced on mobile for performance) */
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 const bloom = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
-  0.7, 0.6, 0.2
+  isMobile ? 0.5 : 0.7,   /* strength */
+  isMobile ? 0.4 : 0.6,   /* radius   */
+  0.2                     /* threshold*/
 );
 composer.addPass(bloom);
 
@@ -312,11 +322,12 @@ const floatGeos = [
   new THREE.TetrahedronGeometry(0.24, 0),
   new THREE.DodecahedronGeometry(0.18, 0),
 ];
-for (let i = 0; i < 14; i++) {
+const floatCount = isMobile ? 6 : 14;
+for (let i = 0; i < floatCount; i++) {
   const geo = floatGeos[i % floatGeos.length];
   const m = new THREE.Mesh(geo, fMats[i % fMats.length]);
   const r = 3.5 + Math.random() * 3.5;
-  const a = (i / 14) * Math.PI * 2 + Math.random();
+  const a = (i / floatCount) * Math.PI * 2 + Math.random();
   m.position.set(Math.cos(a) * r, (Math.random() - 0.3) * 5, Math.sin(a) * r - 1);
   const baseY = m.position.y;
   m.userData = {
@@ -351,7 +362,7 @@ for (let i = 0; i < 3; i++) {
 /* ------------------------------------------------------------
    6. PARTICLE FIELD
    ------------------------------------------------------------ */
-const pCount = 1600;
+const pCount = isMobile ? 600 : (isTablet ? 1000 : 1600);
 const pGeo = new THREE.BufferGeometry();
 const pPos = new Float32Array(pCount * 3);
 const pCol = new Float32Array(pCount * 3);
@@ -395,7 +406,9 @@ if (window.gsap && window.ScrollTrigger) {
 
   /* master timeline — laptop glides to a unique pose for each section */
   const sections = ['hero', 'about', 'skills', 'services', 'experience', 'projects', 'process', 'education', 'contact'];
-  const poses = [
+
+  /* Desktop poses — laptop moves left/right and rotates between sections */
+  const desktopPoses = [
     { x: 2.7,  y: 0.5,  z: 0,    rx: 0.06,  ry: -0.55, rz: 0,     s: 1.00 }, /* hero     */
     { x: -3.0, y: 0.6,  z: -1,   rx: -0.12, ry: 0.55,  rz: 0.05,  s: 0.70 }, /* about    */
     { x: 3.1,  y: -0.2, z: -1,   rx: 0.10,  ry: -0.7,  rz: -0.05, s: 0.62 }, /* skills   */
@@ -406,6 +419,21 @@ if (window.gsap && window.ScrollTrigger) {
     { x: -2.8, y: 0.5,  z: -1,   rx: 0.12,  ry: 0.6,   rz: -0.05, s: 0.6  }, /* edu      */
     { x: 0,    y: -0.4, z: -1,   rx: 0,     ry: 0,     rz: 0,     s: 0.78 }, /* contact  */
   ];
+
+  /* Mobile poses — laptop stays centered (narrow screen), smaller, sits behind text */
+  const mobilePoses = [
+    { x: 0,    y: -1.2, z: 0,    rx: 0.12,  ry: -0.35, rz: 0,     s: 0.72 }, /* hero     */
+    { x: 0,    y: 0.6,  z: -2.5, rx: -0.1,  ry: 0.4,   rz: 0.04,  s: 0.5  }, /* about    */
+    { x: 0,    y: -0.8, z: -2.5, rx: 0.1,   ry: -0.45, rz: -0.04, s: 0.5  }, /* skills   */
+    { x: 0,    y: 0.6,  z: -2.5, rx: -0.08, ry: 0.4,   rz: 0.04,  s: 0.5  }, /* services */
+    { x: 0,    y: -0.8, z: -2.5, rx: -0.1,  ry: -0.4,  rz: -0.04, s: 0.48 }, /* work     */
+    { x: 0,    y: 0.6,  z: -2.5, rx: -0.05, ry: 0.35,  rz: 0,     s: 0.48 }, /* projects */
+    { x: 0,    y: -0.8, z: -2.5, rx: 0.08,  ry: -0.4,  rz: -0.04, s: 0.5  }, /* process  */
+    { x: 0,    y: 0.6,  z: -2.5, rx: 0.1,   ry: 0.4,   rz: -0.04, s: 0.5  }, /* edu      */
+    { x: 0,    y: -0.4, z: -2,   rx: 0,     ry: 0,     rz: 0,     s: 0.62 }, /* contact  */
+  ];
+
+  const poses = isMobile ? mobilePoses : desktopPoses;
   const tl = window.gsap.timeline({
     scrollTrigger: {
       trigger: 'main',
@@ -467,10 +495,12 @@ function animate() {
   laptop.position.y += Math.sin(t * 0.8) * 0.004;
   lid.rotation.x = -0.28 + Math.sin(t * 0.5) * 0.015;
 
-  /* camera parallax */
-  camera.position.x += (mouseX * 0.7 - camera.position.x) * 0.05;
-  camera.position.y += (0.5 - mouseY * 0.45 - camera.position.y) * 0.05;
-  camera.lookAt(0, 0.4, 0);
+  /* camera parallax — gentler on mobile so the model stays framed */
+  const parAmt = isMobile ? 0.15 : 0.7;
+  const parAmtY = isMobile ? 0.1 : 0.45;
+  camera.position.x += (mouseX * parAmt - camera.position.x) * 0.05;
+  camera.position.y += (0.5 - mouseY * parAmtY - camera.position.y) * 0.05;
+  camera.lookAt(0, isMobile ? 0.2 : 0.4, 0);
 
   /* floaters */
   floaters.children.forEach((m) => {
@@ -494,6 +524,9 @@ function animate() {
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
+  /* widen FOV on portrait phones so the model fits */
+  const portrait = window.innerHeight > window.innerWidth;
+  camera.fov = (window.innerWidth <= 768) ? (portrait ? 62 : 50) : 42;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   composer.setSize(window.innerWidth, window.innerHeight);
@@ -615,7 +648,8 @@ document.querySelectorAll('a, .btn, [data-cursor], .skill-card, .project-card, .
     el.addEventListener('mouseleave', () => cRing.classList.remove('grow'));
   });
 
-/* Magnetic buttons (buttons & socials follow the cursor slightly) */
+/* Magnetic buttons (buttons & socials follow the cursor slightly) — skip on touch */
+if (!isMobile) {
 document.querySelectorAll('.magnetic').forEach((el) => {
   el.addEventListener('mousemove', (e) => {
     const r = el.getBoundingClientRect();
@@ -629,8 +663,10 @@ document.querySelectorAll('.magnetic').forEach((el) => {
     if (window.gsap) window.gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' });
   });
 });
+}
 
-/* 3D tilt on cards */
+/* 3D tilt on cards — skip on touch devices */
+if (!isMobile) {
 document.querySelectorAll('[data-tilt]').forEach((card) => {
   card.addEventListener('mousemove', (e) => {
     const r = card.getBoundingClientRect();
@@ -643,6 +679,7 @@ document.querySelectorAll('[data-tilt]').forEach((card) => {
     card.style.transform = 'perspective(900px) rotateY(0) rotateX(0)';
   });
 });
+}
 
 /* Footer year */
 document.getElementById('year').textContent = new Date().getFullYear();
