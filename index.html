@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nisarg Panchal — Front-End Developer & Creative Coder</title>
+<meta name="description" content="Portfolio of Nisarg Panchal — a creative Front-End Developer crafting immersive, animated, 3D web experiences.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-inner">
+    <div class="pre-logo">
+      <span>N</span><span class="dot">.</span>
+    </div>
+    <div class="pre-tag">CREATIVE FRONT-END DEVELOPER</div>
+    <div class="pre-bar"><i></i></div>
+    <div class="pre-pct">0%</div>
+  </div>
+</div>
+
+<!-- FILM GRAIN OVERLAY -->
+<div class="grain"></div>
+
+<!-- BACKGROUND LAYERS -->
+<div class="bg-aurora"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<!-- 3D SCENE CANVAS (scroll-driven) -->
+<canvas id="scene-canvas"></canvas>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="scroll-progress"><i></i></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo" data-cursor>NISARG<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#about" data-cursor><span>01</span> About</a>
+    <a href="#skills" data-cursor><span>02</span> Skills</a>
+    <a href="#services" data-cursor><span>03</span> Services</a>
+    <a href="#experience" data-cursor><span>04</span> Work</a>
+    <a href="#projects" data-cursor><span>05</span> Projects</a>
+    <a href="#contact" class="nav-cta magnetic" data-cursor>Let's Talk <span class="arrow">→</span></a>
+  </div>
+  <div class="nav-burger" id="navBurger" data-cursor><span></span><span></span><span></span></div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero" class="full">
+    <div class="hero-content">
+      <div class="hero-tag"><span class="dot"></span> AVAILABLE FOR WORK · 2026</div>
+      <h1 class="hero-title">
+        <span class="line"><span class="word" data-split>NISARG</span></span>
+        <span class="line"><span class="word outline" data-split>PANCHAL</span></span>
+      </h1>
+      <div class="hero-role">
+        <span class="role-ico">◆</span>
+        <span class="role-text">FRONT-END DEVELOPER</span>
+        <span class="role-sep">/</span>
+        <span>UI ENGINEER</span>
+      </div>
+      <p class="hero-sub">
+        I design &amp; build <b>immersive, animated</b> web experiences with
+        <b>HTML, CSS, JavaScript &amp; React.js</b> — turning ideas into
+        pixel-perfect, responsive interfaces.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary magnetic" data-cursor>View My Work <span class="arrow">→</span></a>
+        <a href="#contact" class="btn btn-ghost magnetic" data-cursor>Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num" data-count="3">0</div><div class="lbl">Internships</div></div>
+        <div class="hero-stat"><div class="num" data-count="4">0</div><div class="lbl">Projects Built</div></div>
+        <div class="hero-stat"><div class="num" data-count="6">0</div><div class="lbl">Certifications</div></div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="mouse"></div>
+      <span>SCROLL TO EXPLORE</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>FRONT-END</span><span class="m-dot">✦</span>
+      <span>REACT.JS</span><span class="m-dot">✦</span>
+      <span>CREATIVE CODING</span><span class="m-dot">✦</span>
+      <span>3D / WEBGL</span><span class="m-dot">✦</span>
+      <span>UI / UX</span><span class="m-dot">✦</span>
+      <span>RESPONSIVE</span><span class="m-dot">✦</span>
+      <span>ANIMATION</span><span class="m-dot">✦</span>
+      <span>FRONT-END</span><span class="m-dot">✦</span>
+      <span>REACT.JS</span><span class="m-dot">✦</span>
+      <span>CREATIVE CODING</span><span class="m-dot">✦</span>
+      <span>3D / WEBGL</span><span class="m-dot">✦</span>
+      <span>UI / UX</span><span class="m-dot">✦</span>
+      <span>RESPONSIVE</span><span class="m-dot">✦</span>
+      <span>ANIMATION</span><span class="m-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="kicker reveal">01 — About Me</div>
+      <h2 class="section-title reveal">Designer-minded <em>developer</em><br>obsessed with <em>craft.</em></h2>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <p>
+            Creative and motivated <b>Front-End Developer</b> with hands-on internship
+            experience building responsive, user-friendly web applications. Proficient
+            in <b>HTML, CSS, JavaScript &amp; React.js</b>.
+          </p>
+          <p>
+            Known for problem-solving, effective teamwork, and a deep passion for
+            enhancing user experiences — turning ideas into pixel-perfect, accessible,
+            and animated interfaces.
+          </p>
+          <div class="about-tags">
+            <span class="tag">React.js</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Responsive UI</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Git / GitHub</span>
+            <span class="tag">WebGL</span>
+          </div>
+        </div>
+        <div class="info-rows reveal">
+          <div class="info-row"><span class="k">Name</span><span class="v">Nisarg Panchal</span></div>
+          <div class="info-row"><span class="k">Role</span><span class="v gold">Front-End Developer</span></div>
+          <div class="info-row"><span class="k">Phone</span><span class="v">+91 81413 56802</span></div>
+          <div class="info-row"><span class="k">Email</span><span class="v">nisargpanchal2006@gmail.com</span></div>
+          <div class="info-row"><span class="k">GitHub</span><span class="v gold">Nisarg226</span></div>
+          <div class="info-row"><span class="k">Languages</span><span class="v">English · Gujarati · Hindi</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="kicker reveal">02 — Toolkit</div>
+      <h2 class="section-title reveal">Skills &amp; <em>technologies</em></h2>
+      <p class="section-lead reveal" style="margin-bottom:50px;">
+        The tools I use to design, build and ship modern, responsive interfaces.
+      </p>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-tilt>
+          <div class="icon">🌐</div>
+          <h4>HTML5</h4>
+          <p>Semantic, accessible markup</p>
+          <div class="skill-bar"><i data-w="90"></i></div>
+          <span class="lvl">90%</span>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <div class="icon">🎨</div>
+          <h4>CSS3</h4>
+          <p>Flexbox, Grid, animations</p>
+          <div class="skill-bar"><i data-w="85"></i></div>
+          <span class="lvl">85%</span>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <div class="icon">⚡</div>
+          <h4>JavaScript</h4>
+          <p>ES6+, DOM, APIs</p>
+          <div class="skill-bar"><i data-w="80"></i></div>
+          <span class="lvl">80%</span>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <div class="icon">⚛️</div>
+          <h4>React.js</h4>
+          <p>Components, hooks, state</p>
+          <div class="skill-bar"><i data-w="65"></i></div>
+          <span class="lvl">65%</span>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <div class="icon">🖌️</div>
+          <h4>Figma</h4>
+          <p>UI/UX &amp; prototyping</p>
+          <div class="skill-bar"><i data-w="75"></i></div>
+          <span class="lvl">75%</span>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <div class="icon">🔧</div>
+          <h4>Git &amp; GitHub</h4>
+          <p>Version control &amp; collaboration</p>
+          <div class="skill-bar"><i data-w="78"></i></div>
+          <span class="lvl">78%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="kicker reveal">03 — What I Do</div>
+      <h2 class="section-title reveal">Services &amp; <em>expertise</em></h2>
+      <p class="section-lead reveal" style="margin-bottom:50px;">
+        From concept to launch — here's what I can build for you.
+      </p>
+      <div class="services-grid">
+        <div class="service-card reveal" data-tilt>
+          <div class="service-head">
+            <div class="service-ico">🎨</div>
+            <div class="service-num">01</div>
+          </div>
+          <h4>Web Design</h4>
+          <p>Clean, modern, and intuitive UI/UX designs crafted in Figma — pixel-perfect and conversion-focused.</p>
+          <div class="service-divider"></div>
+          <ul class="service-list">
+            <li>UI / UX Design</li>
+            <li>Prototyping</li>
+            <li>Design Systems</li>
+          </ul>
+        </div>
+        <div class="service-card reveal" data-tilt>
+          <div class="service-head">
+            <div class="service-ico">💻</div>
+            <div class="service-num">02</div>
+          </div>
+          <h4>Front-End Development</h4>
+          <p>Responsive, accessible websites built with HTML, CSS, JavaScript &amp; React.js that feel fast and smooth.</p>
+          <div class="service-divider"></div>
+          <ul class="service-list">
+            <li>Responsive Layouts</li>
+            <li>React Components</li>
+            <li>API Integration</li>
+          </ul>
+        </div>
+        <div class="service-card reveal" data-tilt>
+          <div class="service-head">
+            <div class="service-ico">⚡</div>
+            <div class="service-num">03</div>
+          </div>
+          <h4>Creative Animation</h4>
+          <p>Scroll animations, micro-interactions, and 3D/WebGL experiences that make websites memorable.</p>
+          <div class="service-divider"></div>
+          <ul class="service-list">
+            <li>GSAP Animation</li>
+            <li>3D / Three.js</li>
+            <li>Micro-interactions</li>
+          </ul>
+        </div>
+        <div class="service-card reveal" data-tilt>
+          <div class="service-head">
+            <div class="service-ico">📱</div>
+            <div class="service-num">04</div>
+          </div>
+          <h4>Responsive &amp; Performance</h4>
+          <p>Every site I build works flawlessly across all devices and is optimized for speed and accessibility.</p>
+          <div class="service-divider"></div>
+          <ul class="service-list">
+            <li>Mobile-First</li>
+            <li>Performance</li>
+            <li>SEO Basics</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="kicker reveal">04 — Career Path</div>
+      <h2 class="section-title reveal">Work <em>experience</em></h2>
+      <p class="section-lead reveal" style="margin-bottom:60px;">
+        Internships where I shipped real front-end features and learned best coding practices.
+      </p>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-date">1 MONTH · REACT.JS</div>
+            <h4>Front-End Intern</h4>
+            <div class="tl-company">Sahajanand Digital</div>
+            <ul>
+              <li>Contributed to a real-world front-end project using React.js</li>
+              <li>Worked with APIs and fetched data dynamically</li>
+              <li>Implemented responsive designs for cross-device compatibility</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-date">1 MONTH · CSS, JS</div>
+            <h4>Front-End Intern</h4>
+            <div class="tl-company">5D WEB Infotech</div>
+            <ul>
+              <li>Developed reusable components with HTML, CSS &amp; JavaScript</li>
+              <li>Improved website performance and accessibility</li>
+              <li>Learned best coding practices and debugging skills</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-date">1.5 MONTHS · HTML</div>
+            <h4>Front-End Intern</h4>
+            <div class="tl-company">TechGlobe Solutions</div>
+            <ul>
+              <li>Collaborated with a team to fix bugs and optimize code</li>
+              <li>Assisted in developing responsive UI components using HTML</li>
+              <li>Worked with version control systems like Git and GitHub</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="kicker reveal">05 — Selected Work</div>
+      <h2 class="section-title reveal">Featured <em>projects</em></h2>
+      <p class="section-lead reveal" style="margin-bottom:50px;">
+        A few responsive websites I've designed and built from scratch.
+      </p>
+      <div class="projects-grid">
+        <a href="#" class="project-card reveal" data-tilt>
+          <span class="project-num">01</span>
+          <h4>Maa Furniture</h4>
+          <p>A responsive website for Maa Furniture built with HTML, CSS &amp; JavaScript — showcasing products and services with an intuitive UI for an enhanced user experience.</p>
+          <div class="project-stack">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive</span>
+          </div>
+          <span class="project-arrow">↗</span>
+        </a>
+        <a href="#" class="project-card reveal" data-tilt>
+          <span class="project-num">02</span>
+          <h4>Web Project</h4>
+          <p>A modern, responsive website featuring a clean UI and smooth user experience — built entirely with HTML, CSS &amp; JavaScript.</p>
+          <div class="project-stack">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>UI/UX</span>
+          </div>
+          <span class="project-arrow">↗</span>
+        </a>
+        <a href="#" class="project-card reveal" data-tilt>
+          <span class="project-num">03</span>
+          <h4>This Portfolio</h4>
+          <p>A premium, scroll-animated portfolio featuring a 3D coding scene with Three.js — designed and engineered from the ground up to stand out.</p>
+          <div class="project-stack">
+            <span>Three.js</span><span>JavaScript</span><span>CSS3</span><span>WebGL</span>
+          </div>
+          <span class="project-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="container">
+      <div class="kicker reveal">06 — How I Work</div>
+      <h2 class="section-title reveal">My <em>process</em></h2>
+      <p class="section-lead reveal" style="margin-bottom:60px;">
+        A simple, transparent workflow that takes your idea from concept to a polished, live website.
+      </p>
+      <div class="process-wrap">
+        <div class="process-grid">
+          <div class="process-step reveal">
+            <div class="ps-num">01</div>
+            <div class="ps-body">
+              <h4>Discover</h4>
+              <p>We talk about your goals, audience, and vision. I research and plan the right approach for your project.</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="ps-num">02</div>
+            <div class="ps-body">
+              <h4>Design</h4>
+              <p>I craft clean, modern UI mockups in Figma — refined until every pixel feels right before any code.</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="ps-num">03</div>
+            <div class="ps-body">
+              <h4>Develop</h4>
+              <p>Responsive, fast, animated front-end built with HTML, CSS, JavaScript &amp; React.js — clean and maintainable.</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="ps-num">04</div>
+            <div class="ps-body">
+              <h4>Deliver</h4>
+              <p>I test across devices, optimize performance, and launch your site — plus support after go-live.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section id="cta-banner">
+    <div class="container">
+      <div class="cta-card reveal">
+        <div class="cta-bg"></div>
+        <div class="cta-content">
+          <div class="kicker" style="color:var(--gold-3);">Let's collaborate</div>
+          <h3>Have an idea?<br>Let's make it <em>real.</em></h3>
+          <p>Whether it's a landing page, a full website, or a creative 3D experience — I'm ready to build it with you.</p>
+          <a href="#contact" class="btn btn-primary magnetic" data-cursor>Start a Project <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + CERTS -->
+  <section id="education">
+    <div class="container">
+      <div class="kicker reveal">07 — Background</div>
+      <h2 class="section-title reveal">Education &amp; <em>certifications</em></h2>
+      <div class="split-grid" style="margin-top:50px;">
+        <div>
+          <h3 class="sub-title reveal">Education</h3>
+          <div class="edu-card reveal" style="margin-bottom:18px;">
+            <div class="edu-year">2022 — 2023</div>
+            <h4>Diploma in Information Technology</h4>
+            <p>Monark University</p>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-year">2011 — 2021</div>
+            <h4>10th / SSC</h4>
+            <p>Samanya Vidyalaya Higher Sec · <span class="edu-mark">60%</span></p>
+          </div>
+        </div>
+        <div>
+          <h3 class="sub-title reveal">Certifications</h3>
+          <div class="cert-card reveal" style="margin-bottom:18px;">
+            <div class="cert-icon">☁️</div>
+            <h4>AWS APAC's Solutions Architecture</h4>
+            <p>Forage · Virtual Experience</p>
+          </div>
+          <div class="cert-card reveal">
+            <div class="cert-icon">🤖</div>
+            <h4>Introduction to Artificial Intelligence (AI)</h4>
+            <p>Monark University</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container contact-wrap">
+      <div class="kicker reveal" style="justify-content:center;">08 — Get in touch</div>
+      <h2 class="contact-title reveal">Let's build something<br><em>extraordinary.</em></h2>
+      <p class="contact-sub reveal">Have a project in mind or just want to say hi? My inbox is always open.</p>
+      <a href="mailto:nisargpanchal2006@gmail.com" class="contact-email reveal magnetic" data-cursor>nisargpanchal2006@gmail.com</a>
+      <div class="socials reveal">
+        <a href="tel:+918141356802" class="social magnetic" title="Phone" data-cursor>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.2 2.2z"/></svg>
+        </a>
+        <a href="mailto:nisargpanchal2006@gmail.com" class="social magnetic" title="Email" data-cursor>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm10 7L3.5 6h17L12 11zm0 2.3L3 7.7V18h18V7.7l-9 5.6z"/></svg>
+        </a>
+        <a href="https://github.com/Nisarg226" target="_blank" rel="noopener" class="social magnetic" title="GitHub" data-cursor>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© <span id="year"></span> Nisarg Panchal — Front-End Developer</span>
+  <span>Designed &amp; built with <span style="color:var(--gold);">♦</span> · HTML · CSS · JavaScript · Three.js</span>
+</footer>
+
+<!-- ===================== LIBS ===================== -->
+<!-- Three.js -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<!-- Main logic -->
+<script type="module" src="main.js"></script>
+
+</body>
+</html>
